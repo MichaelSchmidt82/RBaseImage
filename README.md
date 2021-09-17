@@ -5,7 +5,7 @@ A base image for OHDSI R projects
 
 ### TODO
 
-- CRITICAL: Fix extract.sh to not delete `bin/` if a docker command fails.  Do not name non-existent or unauthorized OHDSI repos when using extract.sh -- you will lose your time and work.
+- CRITICAL: Fix extract.sh to not delete `bin/` if a docker command fails.  Do not name non-existent or unauthorized OHDSI repos when using extract.sh -- you will lose your time and work.  You should save the files in `bin` every so often.
 
 ### Scripts:
 
