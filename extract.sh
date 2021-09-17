@@ -1,4 +1,7 @@
 #!/bin/bash
+mkdir -p $(PWD)/extract
+mkdir -p $(PWD)/bin
+
 docker build \
     --target test_build \
     --tag r-extract \
@@ -9,7 +12,7 @@ docker run \
 
 docker cp some-extract:/usr/local/lib/R/site-library .
 
-# TODO if the above fails, this gets really messy (i.e you mistype a repo)
+# FIXME: if the above fails, this gets really messy (i.e you mistype a repo)
 
 pushd site-library
 for file in *; do
