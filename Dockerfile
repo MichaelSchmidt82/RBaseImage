@@ -21,3 +21,15 @@ RUN R CMD javareconf
 # Install remaining packages from source
 COPY ./requirements.R .
 RUN Rscript requirements.R
+
+CMD [ "/bin/bash" ]
+
+FROM base as build
+
+RUN R -e "devtools::install_github('OHDSI/Achilles')"
+RUN R -e "devtools::install_github('OHDSI/DataQualityDashboard')"
+RUN R -e "devtools::install_github('OHDSI/CohortDiagnostics')"
+
+FROM r-base as deploy
+
+COPY --from=build /usr/local/lib/R/site-library/ /usr/local/lib/R/site-library/
