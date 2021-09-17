@@ -18,18 +18,6 @@ RUN apt install -y r-base r-base-dev r-cran-devtools
 RUN apt install -y default-jdk libxml2-dev libcurl4-openssl-dev libssl-dev
 RUN R CMD javareconf
 
-FROM base as test_build
-
-#* Install the package for extraction
-ARG package=missing-argument
-RUN R -e "devtools::install_github('${package}')"
-
-FROM base as deploy
-
-WORKDIR /usr/local/lib/R/site-library/
-COPY ./bin/* .
-RUN for file in *; do tar xvfz ${file%}; done
-RUN rm -r *.tar.gz
-
-WORKDIR /
-CMD [ "/bin/bash" ]
+# Install remaining packages from source
+COPY ./requirements.R .
+RUN Rscript requirements.R
