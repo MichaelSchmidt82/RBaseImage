@@ -1,13 +1,14 @@
 FROM debian:bullseye as base
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV GITHUB_PAT=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
 
 #* Install common apt tools
 RUN apt update -qq
 RUN apt install -y gnupg apt-transport-https ca-certificates software-properties-common
 
 #* Add CRAN repository and retrieve signing key
-RUN echo 'deb https://cloud.r-project.org/bin/linux/debian bullseye-cran40/' >> /etc/apt/sources.list
+RUN echo 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' >> /etc/apt/sources.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key FCAE2A0E115C3D8A
 RUN apt update -qq
 
@@ -15,7 +16,7 @@ RUN apt update -qq
 RUN apt install -y r-base r-base-dev r-cran-devtools
 
 #* Install other dependencies
-RUN apt install -y default-jdk libxml2-dev libcurl4-openssl-dev libssl-dev
+RUN apt install -y default-jdk default-jre libxml2-dev libcurl4-openssl-dev libssl-dev libfontconfig1-dev
 RUN R CMD javareconf
 
 # Install remaining packages from source
