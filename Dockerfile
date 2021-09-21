@@ -1,7 +1,6 @@
 FROM debian:bullseye as base
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV GITHUB_PAT=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
 
 #* Install common apt tools
 RUN apt update -qq
