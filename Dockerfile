@@ -10,7 +10,7 @@ RUN apt install -y r-base r-base-dev r-cran-devtools
 RUN apt install -y default-jdk default-jre libxml2-dev libcurl4-openssl-dev libssl-dev libfontconfig1-dev
 RUN R CMD javareconf
 
-# Install remaining packages from source
+#* Install remaining packages from source
 COPY ./requirements.R .
 RUN Rscript requirements.R
 
