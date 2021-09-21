@@ -1,7 +1,7 @@
 FROM debian:bullseye as base
 
 ENV DEBIAN_FRONTEND=noninteractive
-
+ENV GITHUB_PAT=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
 
 #* update apt and install R
 RUN apt update -qq
@@ -17,12 +17,11 @@ RUN Rscript requirements.R
 
 CMD [ "/bin/bash" ]
 
-FROM base as build
-
+FROM base as build-achilles
 RUN R -e "devtools::install_github('OHDSI/Achilles')"
+
+FROM base as build-data-quality-dashboard
 RUN R -e "devtools::install_github('OHDSI/DataQualityDashboard')"
+
+FROM base as build-cohort-diagnostics
 RUN R -e "devtools::install_github('OHDSI/CohortDiagnostics')"
-
-FROM r-base as deploy
-
-COPY --from=build /usr/local/lib/R/site-library/ /usr/local/lib/R/site-library/
