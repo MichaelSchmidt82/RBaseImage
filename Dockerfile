@@ -2,16 +2,9 @@ FROM debian:bullseye as base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-#* Install common apt tools
-RUN apt update -qq
-RUN apt install -y gnupg apt-transport-https ca-certificates software-properties-common
 
-#* Add CRAN repository and retrieve signing key
-RUN echo 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' >> /etc/apt/sources.list
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key FCAE2A0E115C3D8A
+#* update apt and install R
 RUN apt update -qq
-
-#* Install R
 RUN apt install -y r-base r-base-dev r-cran-devtools
 
 #* Install other dependencies
