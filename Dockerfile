@@ -1,7 +1,6 @@
 FROM debian:bullseye as base
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV GITHUB_PAT=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
 
 #* update apt and install R
 RUN apt update -qq
